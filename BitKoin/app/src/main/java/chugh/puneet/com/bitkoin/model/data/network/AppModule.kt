@@ -1,7 +1,6 @@
 package chugh.puneet.com.bitkoin.model.data.network
 
 import android.app.Application
-import android.support.transition.Visibility
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,6 +10,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.*
@@ -18,9 +18,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule{
-
-
+class AppModule{
 
     @Provides
     @Singleton
@@ -33,7 +31,7 @@ class NetworkModule{
     @Singleton
     fun provideOkHttpClient(application: Application): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BASIC
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val cacheDir = File(application.cacheDir, UUID.randomUUID().toString())
         // 10 MiB cache
@@ -52,9 +50,9 @@ class NetworkModule{
     @Singleton
     fun provideApiService(gson: Gson, okHttpClient: OkHttpClient): NetworkService {
         return Retrofit.Builder()
-                .baseUrl("http://ip.jsontest.com/")
+                .baseUrl("https://pro-api.coinmarketcap.com")
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build().create(NetworkService::class.java)
     }
