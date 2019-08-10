@@ -1,13 +1,12 @@
-package chugh.puneet.com.bitkoin
+package chugh.puneet.com.bitkoin.di.builder
 
 import chugh.puneet.com.bitkoin.ui.MainActivity
-import chugh.puneet.com.bitkoin.ui.MainActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class))
+    @ContributesAndroidInjector()
     abstract fun bindMainActivity(): MainActivity
 }

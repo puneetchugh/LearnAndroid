@@ -25,7 +25,7 @@ class Datum {
     var totalSupply: Double? = null
     @SerializedName("max_supply")
     @Expose
-    var maxSupply: Int? = null
+    var maxSupply: Double? = null
     @SerializedName("date_added")
     @Expose
     var dateAdded: String? = null

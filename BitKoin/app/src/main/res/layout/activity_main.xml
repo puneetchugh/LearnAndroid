@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/id_main_activity"
     tools:context=".ui.MainActivity">
 
     <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/list"
+        android:id="@+id/id_bitkoin_recyclerview_list"
+        android:name="puneet.chugh.com.bitkoin.recycler_view"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".views."
-        tools:listitem="@layout/repo_card_view" />
+        tools:listitem="@layout/card_view_item" />
 
+    <TextView
+        android:id="@+id/id_status_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
-</android.support.constraint.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/id_progress_bar"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textStyle="bold"
+    />
+</RelativeLayout>
