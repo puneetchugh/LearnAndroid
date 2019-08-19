@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import chugh.puneet.com.bitkoin.constants.LOG_TAG
 import chugh.puneet.com.bitkoin.R
-import chugh.puneet.com.bitkoin.model.data.data.Datum
 import kotlinx.android.synthetic.main.card_view_item.view.*
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import chugh.puneet.com.bitkoin.model.data.data.model.Datum
 
 class BitkoinListAdapter(val context : Context,
                          var bitkoinList : MutableList<Datum>?) :
@@ -54,17 +54,16 @@ class BitkoinListAdapter(val context : Context,
                 holder.bitkoinName.text = datum.name
                 holder.bitkoinSymbol.text = datum.symbol
 
-                holder.dateAdded.text = String.format("Added on : %s",convertDateTime(datum.dateAdded!!))
+                holder.dateAdded.text = String.format("Added on : %s",convertDateTime(datum.date_added))
 
-                val usd = datum.quote?.usd
-                usd.takeIf { it != null }
-                        .let {
+                val usd = datum.quote.usd
+                usd.let {
                         Log.d(LOG_TAG, "usd is not null")
-                        holder.bitkoinPrice.text = String.format("Price : $%,f", it?.price)
-                        holder.marketCap.text = String.format("Market Cap : $%,f", it?.marketCap)
-                        holder.vol24Hours.text = String.format("Volume (24 Hours) : $%,f", it?.volume24h)
-                        holder.percentageChange.text = String.format("1h:%.2f%% \t\t\t24h:%.2f%% \t\t\t7d:%.2f%%", it?.percentChange1h,
-                            it?.percentChange24h, it?.percentChange7d)
+                        holder.bitkoinPrice.text = String.format("Price : $%,f", it.price)
+                        holder.marketCap.text = String.format("Market Cap : $%,f", it.market_cap)
+                        holder.vol24Hours.text = String.format("Volume (24 Hours) : $%,f", it.volume_24h)
+                        holder.percentageChange.text = String.format("1h:%.2f%% \t\t\t24h:%.2f%% \t\t\t7d:%.2f%%", it.percent_change_1h,
+                            it.percent_change_24h, it.percent_change_7d)
                 }
             }
     }

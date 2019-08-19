@@ -2,10 +2,6 @@ package chugh.puneet.com.bitkoin
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.MutableLiveData
-import chugh.puneet.com.bitkoin.model.data.data.DataList
-import chugh.puneet.com.bitkoin.model.data.data.Datum
-import chugh.puneet.com.bitkoin.model.data.data.Quote
-import chugh.puneet.com.bitkoin.model.data.data.USD
 import chugh.puneet.com.bitkoin.model.data.network.NetworkService
 import chugh.puneet.com.bitkoin.viewmodel.MainActivityViewModel
 import com.nhaarman.mockitokotlin2.any

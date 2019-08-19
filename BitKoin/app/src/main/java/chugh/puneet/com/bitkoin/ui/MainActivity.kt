@@ -17,7 +17,7 @@ import chugh.puneet.com.bitkoin.FetchingIdlingResource
 import chugh.puneet.com.bitkoin.constants.LOG_TAG
 import chugh.puneet.com.bitkoin.R
 import chugh.puneet.com.bitkoin.adapter.BitkoinListAdapter
-import chugh.puneet.com.bitkoin.model.data.data.Datum
+import chugh.puneet.com.bitkoin.model.data.data.model
 import chugh.puneet.com.bitkoin.model.data.network.AppModule
 import chugh.puneet.com.bitkoin.viewmodel.MainActivityViewModel
 import dagger.android.AndroidInjection
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainActivityViewModel: MainActivityViewModel
     lateinit var fetchingIdlingResource : FetchingIdlingResource
     lateinit var fetcherListener : FetchingIdlingResource
-    val bitkoinObserver = Observer<List<Datum>>{
+    val bitkoinObserver = Observer<List<model.Datum>>{
 
-        if(this::fetcherListener.isInitialized && fetcherListener != null)
+        if(this::fetcherListener.isInitialized)
             fetcherListener.doneFetching()
         Log.d(LOG_TAG, "Inside bitkoinObserver...list received : "+it)
         id_status_message.visibility = View.GONE
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                                                 this@MainActivity,
                                                          it?.toMutableList())*/
 
-        (id_bitkoin_recyclerview_list.adapter as BitkoinListAdapter).updateDataSet(it as MutableList<Datum>?)
+        (id_bitkoin_recyclerview_list.adapter as BitkoinListAdapter).updateDataSet(it as MutableList<model.Datum>?)
         id_progress_bar.visibility = View.GONE
     }
 
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     id_bitkoin_recyclerview_list.visibility = View.GONE
                     showSnackbarMessage(notificationMsg)
                 }
-        if(this::fetcherListener.isInitialized && fetcherListener != null)
+        if(this::fetcherListener.isInitialized)
             fetcherListener.doneFetching()
     }
 
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         val snack = Snackbar.make( id_main_activity, message,
                 Snackbar.LENGTH_LONG)
         snack.show()
-        if(this::fetcherListener.isInitialized && fetcherListener != null)
+        if(this::fetcherListener.isInitialized)
             fetcherListener.doneFetching()
     }
 
