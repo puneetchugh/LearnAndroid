@@ -14,10 +14,10 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import chugh.puneet.com.bitkoin.FetchingIdlingResource
-import chugh.puneet.com.bitkoin.constants.LOG_TAG
 import chugh.puneet.com.bitkoin.R
 import chugh.puneet.com.bitkoin.adapter.BitkoinListAdapter
-import chugh.puneet.com.bitkoin.model.data.data.model
+import chugh.puneet.com.bitkoin.constants.LOG_TAG
+import chugh.puneet.com.bitkoin.model.data.data.history.transformedModel
 import chugh.puneet.com.bitkoin.model.data.network.AppModule
 import chugh.puneet.com.bitkoin.viewmodel.MainActivityViewModel
 import dagger.android.AndroidInjection
@@ -32,11 +32,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainActivityViewModel: MainActivityViewModel
     lateinit var fetchingIdlingResource : FetchingIdlingResource
     lateinit var fetcherListener : FetchingIdlingResource
-    val bitkoinObserver = Observer<List<model.Datum>>{
+
+    val allBitkoinObserver = Observer<List<transformedModel.NewData>>{
 
         if(this::fetcherListener.isInitialized)
             fetcherListener.doneFetching()
-        Log.d(LOG_TAG, "Inside bitkoinObserver...list received : "+it)
+        Log.d(LOG_TAG, "Inside allBitkoinObserver...list received : "+it)
         id_status_message.visibility = View.GONE
         id_bitkoin_recyclerview_list.visibility = View.VISIBLE
 
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                                                 this@MainActivity,
                                                          it?.toMutableList())*/
 
-        (id_bitkoin_recyclerview_list.adapter as BitkoinListAdapter).updateDataSet(it as MutableList<model.Datum>?)
+        (id_bitkoin_recyclerview_list.adapter as BitkoinListAdapter).updateDataSet(it as MutableList<transformedModel.NewData>?)
         id_progress_bar.visibility = View.GONE
     }
 
@@ -78,13 +79,15 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
         id_bitkoin_recyclerview_list.adapter = BitkoinListAdapter(
                 this@MainActivity,
-                mainActivityViewModel.mutableLiveData.value?.toMutableList())
+                mainActivityViewModel.mutableAllLiveData.value?.toMutableList())
+
 
         id_bitkoin_recyclerview_list.layoutManager = GridLayoutManager(this, 1) as RecyclerView.LayoutManager?
         id_bitkoin_recyclerview_list.adapter = BitkoinListAdapter(
                 this@MainActivity,
                 null)
-        mainActivityViewModel.getBitCoinData().observe(this, bitkoinObserver)
+
+        mainActivityViewModel.getBitCoinData().observe(this, allBitkoinObserver)
         mainActivityViewModel.errorMsg.observe(this, errorObserver)
     }
 

@@ -15,7 +15,7 @@ constructor(private val viewModels: MutableMap<Class<out ViewModel>, Provider<Vi
             ?: viewModels.asIterable().firstOrNull { modelClass.isAssignableFrom(it.key) }?.value
             ?: throw IllegalArgumentException("unknown model class $modelClass")
         return try {
-            creator.get()
+            creator.get() as T
         } catch (e: Exception) {
             throw RuntimeException(e)
         }

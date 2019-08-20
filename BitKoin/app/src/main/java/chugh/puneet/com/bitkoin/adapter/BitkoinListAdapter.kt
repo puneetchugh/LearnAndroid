@@ -6,18 +6,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import chugh.puneet.com.bitkoin.constants.LOG_TAG
 import chugh.puneet.com.bitkoin.R
+import chugh.puneet.com.bitkoin.constants.LOG_TAG
+import chugh.puneet.com.bitkoin.model.data.data.history.transformedModel
 import kotlinx.android.synthetic.main.card_view_item.view.*
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import chugh.puneet.com.bitkoin.model.data.data.model.Datum
 
 class BitkoinListAdapter(val context : Context,
-                         var bitkoinList : MutableList<Datum>?) :
+                         var bitkoinList : MutableList<transformedModel.NewData>?) :
         RecyclerView.Adapter<BitkoinListAdapter.BitkoinViewHolder>(){
 
     class BitkoinViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -29,6 +29,7 @@ class BitkoinListAdapter(val context : Context,
         val marketCap = view.id_bitkoin_marketcap
         val vol24Hours = view.id_bitkoin_vol_24h
         val percentageChange =  view.id_percent_change
+        val isActive = view.id_is_active
     }
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): BitkoinViewHolder {
         return BitkoinViewHolder(
@@ -46,10 +47,9 @@ class BitkoinListAdapter(val context : Context,
 
     override fun onBindViewHolder(holder : BitkoinViewHolder, position: Int) {
 
-        val datum = bitkoinList?.get(position)
+        val datum = bitkoinList?.get(position)?.datum
         Log.d(LOG_TAG, "Inside onBindViewHolder()...datum : "+datum)
-        if(datum != null)
-            {
+        if(datum != null) {
                 Log.d(LOG_TAG, "datum is not null")
                 holder.bitkoinName.text = datum.name
                 holder.bitkoinSymbol.text = datum.symbol
@@ -65,10 +65,13 @@ class BitkoinListAdapter(val context : Context,
                         holder.percentageChange.text = String.format("1h:%.2f%% \t\t\t24h:%.2f%% \t\t\t7d:%.2f%%", it.percent_change_1h,
                             it.percent_change_24h, it.percent_change_7d)
                 }
-            }
+            val isActive = if (bitkoinList?.get(position)?.isActive != null && (bitkoinList?.get(position)?.isActive!!)) context.resources.getString(R.string.yes)
+                                    else context.resources.getString(R.string.no)
+            holder.isActive.text = String.format("%s %s", context.resources.getString(R.string.active), isActive)
+        }
     }
 
-    fun updateDataSet(list : MutableList<Datum>?){
+    fun updateDataSet(list : MutableList<transformedModel.NewData>?){
         Log.d(LOG_TAG, "updateDataSet() called")
 
         if (bitkoinList != null){

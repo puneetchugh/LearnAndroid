@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_gravity="left"
-                android:text="bitcoin"
+                android:text="@string/bitcoin"
                 android:layout_weight="3"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="end"
-                android:text="symbol"
+                android:text="@string/symbol"
                 android:gravity="left"
                 android:layout_weight="1"
                 android:textSize="18sp"
@@ -58,7 +58,7 @@
             android:id="@+id/id_bitkoin_price"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="Price"
+            android:text="@string/price"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:background="@color/colorDarkGreen"/>
@@ -67,7 +67,7 @@
             android:id="@+id/id_bitkoin_marketcap"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="Market Cap"
+            android:text="@string/market_cap"
             android:paddingLeft="4dp"
             android:paddingRight="4dp" />
 
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="Volume (24h)"
+            android:text="@string/volume_24hrs"
             android:background="@color/colorDarkGreen"/>
 
         <TextView
@@ -86,7 +86,16 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:paddingLeft="4dp"
-            android:text="Added on : " />
+            android:text="@string/added_on" />
+
+
+        <TextView
+            android:id="@+id/id_is_active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:background="@color/colorDarkGreen"
+            android:text="@string/active"/>
 
         <TextView
             android:id="@+id/id_percent_change"
@@ -95,8 +104,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textStyle="bold"
-            android:background="@color/colorDarkGreen"
             android:typeface="monospace"/>
+
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -3,4 +3,13 @@
     <string name="no_network">No network !</string>
     <string name="no_data">Data not available !</string>
     <string name="just_testing">Just testing !</string>
+    <string name="added_on">Added on : </string>
+    <string name="active">Active : </string>
+    <string name="price">Price : </string>
+    <string name="market_cap">Market Cap : </string>
+    <string name="symbol">Symbol : </string>
+    <string name="volume_24hrs">Volume (24 Hours)</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
